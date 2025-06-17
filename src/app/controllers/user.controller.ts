@@ -20,9 +20,17 @@ userRoutes.post("/create-user", async (req: Request, res: Response) => {
     // const passoword = await bcrypt.hash(body?.passoword, 10);
     // console.log("Password from user controller", passoword);
 
-    const user = new User(body);
+    // * Instance method
+    // const user = new User(body);
+    // await user.hashPasswordSecond(body.passoword);
 
-    await user.hashPassword(body.passoword);
+    // * static method
+    const hashedPass = await User.hashPassword(body.password);
+
+    console.log(hashedPass);
+    body.password = hashedPass;
+
+    const user = await User.create(body);
 
     res.status(201).json({
       success: true,

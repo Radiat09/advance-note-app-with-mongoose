@@ -15,11 +15,15 @@ export interface IUser {
   password: string;
   role: "USER" | "ADMIN" | "SUPERADMIN";
   address: IAddress;
-  hashPassword(pass: string): Promise<void>; // Add the method directly to IUser
 }
 
 export interface UserInstanceMethods {
   hashPasswordSecond(pass: string): Promise<void>;
 }
 
-export type UserModel = Model<IUser, {}, UserInstanceMethods>;
+export interface UserStaticMethods {
+  hashPassword(pass: string): string;
+}
+
+export type UserModel = Model<IUser, {}, UserInstanceMethods> &
+  UserStaticMethods;
