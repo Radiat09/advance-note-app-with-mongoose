@@ -103,6 +103,14 @@ userSchema.static(
   }
 );
 
+userSchema.pre("save", async function () {
+  this.password = await bcrypt.hash(this.password, 10);
+});
+
+userSchema.post("save", function (doc) {
+  console.log("Data has been save to database: ", doc);
+});
+
 const User = model<IUser, UserModel>("User", userSchema);
 
 export default User;

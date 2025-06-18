@@ -25,10 +25,10 @@ userRoutes.post("/create-user", async (req: Request, res: Response) => {
     // await user.hashPasswordSecond(body.passoword);
 
     // * static method
-    const hashedPass = await User.hashPassword(body.password);
+    // const hashedPass = await User.hashPassword(body.password);
 
-    console.log(hashedPass);
-    body.password = hashedPass;
+    // console.log(hashedPass);
+    // body.password = hashedPass;
 
     const user = await User.create(body);
 
