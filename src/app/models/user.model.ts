@@ -8,6 +8,7 @@ import {
 } from "../interfaces/user.interface";
 import validator from "validator";
 import bcrypt from "bcryptjs";
+import Note from "./notes.model";
 
 const addressSchema = new Schema<IAddress>(
   {
@@ -109,6 +110,10 @@ userSchema.pre("save", async function () {
 
 userSchema.post("save", function (doc) {
   console.log("Data has been save to database: ", doc);
+});
+
+userSchema.post("findOneAndDelete", async function (doc) {
+  await Note.deleteMany({ user: doc._id });
 });
 
 const User = model<IUser, UserModel>("User", userSchema);
